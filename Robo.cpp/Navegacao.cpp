@@ -104,7 +104,7 @@ bool Robo::detectar_parede(){
     delayMicroseconds(10);
     digitalWrite(TRIG, LOW);
 
-    tempo =pulseIn(ECHO, HIGH);
+    tempo = pulseIn(ECHO, HIGH);
 
     distancia = tempo * 0.034 / 2;
 
@@ -114,4 +114,17 @@ bool Robo::detectar_parede(){
     else{
         return false;
     }
+}
+
+void setup(){
+    Serial.begin(9600);
+    
+    pinMode(TRIG, OUTPUT);
+    pinMode(ECHO, INPUT);
+    pinMode(in1, OUTPUT);
+    pinMode(in2, OUTPUT);
+    pinMode(in3, OUTPUT);
+    pinMode(in4, OUTPUT);
+
+    meuServo.attach(SERVO);
 }
