@@ -137,37 +137,11 @@ void setup(){
     meuServo.attach(SERVO);
 }
 
+Robo robo;
+
 void loop(){
-    Robo robo;
-    parede = robo.detectar_parede();
 
-    robo.detectar_parede();
-    delay(50);
-    parede = robo.detectar_parede9();    
-
-    while (parede == false){
+    if(parede == false){
         robo.ir_frente();
-        robo.detectar_parede();
-        parede = robo.detectar_parede();
-
-        while (parede == true){
-            robo.parar_Motores();
-            delay(1000);
-            robo.servo_direita();
-            delay(1000);
-            robo.detectar_parede();
-            if(parede == true){
-                robo.servo_esquerda();
-                if(parede == true){
-                    robo.servo_frente();
-                    robo.virar_direita();
-                    robo.virar_direita();
-                }
-            }
-            else{
-
-            }
-        }
-
     }
 }
