@@ -25,7 +25,7 @@ public:
     void voltar_esquerda(); //move motor B sentido antihorário
     void ir_frente(); //gira motores sentido horário
     void ir_tras(); //gira motores sentido antihorário
-    void pararMotores(); 
+    void parar_Motores(); 
 
     int servo_frente();
     int servo_direita();
@@ -38,21 +38,29 @@ public:
 void Robo::virar_direita() {
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
+    delay(1000);
+    parar_Motores();
 }
 
 void Robo::voltar_direita(){
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
+    delay(1000);
+    parar_Motores();
 }
 
 void Robo::virar_esquerda(){
     digitalWrite(in3, HIGH);
     digitalWrite(in4, LOW);
+    delay(1000);
+    parar_Motores();
 }
 
 void Robo::voltar_esquerda(){
     digitalWrite(in3, LOW);
     digitalWrite(in4, HIGH);
+    delay(1000);
+    parar_Motores();
 }
 
 void Robo::ir_frente() {
@@ -69,7 +77,7 @@ void Robo::ir_tras() {
     digitalWrite(in4, HIGH);
 }
 
-void Robo::pararMotores() {
+void Robo::parar_Motores() {
     digitalWrite(in1, LOW);
     digitalWrite(in2, LOW);
     digitalWrite(in3, LOW);
@@ -118,7 +126,7 @@ bool Robo::detectar_parede(){
 
 void setup(){
     Serial.begin(9600);
-    
+
     pinMode(TRIG, OUTPUT);
     pinMode(ECHO, INPUT);
     pinMode(in1, OUTPUT);
