@@ -101,7 +101,7 @@ bool Robo::detectar_parede(){
     digitalWrite(TRIG, LOW);
     delayMicroseconds(2);
     digitalWrite(TRIG, HIGH);
-    delayMicrosenconds(10);
+    delayMicroseconds(10);
     digitalWrite(TRIG, LOW);
 
     tempo =pulseIn(ECHO, HIGH);
