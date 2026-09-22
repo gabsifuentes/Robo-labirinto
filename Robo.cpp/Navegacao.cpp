@@ -30,6 +30,8 @@ public:
     int servo_frente();
     int servo_direita();
     int servo_esquerda();
+
+    bool detectar_parede();
 };
 
 //funções dos motores
@@ -91,4 +93,25 @@ int Robo::servo_direita(){
     meuServo.write(0);
     delay(1000);
     return 0;
+}
+
+//função do sensor
+bool Robo::detectar_parede(){
+    long tempo, distancia;
+    digitalWrite(TRIG, LOW);
+    delayMicroseconds(2);
+    digitalWrite(TRIG, HIGH);
+    delayMicrosenconds(10);
+    digitalWrite(TRIG, LOW);
+
+    tempo =pulseIn(ECHO, HIGH);
+
+    distancia = tempo * 0.034 / 2;
+
+    if(distancia < 20){
+        return true;
+    } 
+    else{
+        return false;
+    }
 }
