@@ -41,17 +41,17 @@ public:
 
 //funções dos motores
 void Robo::ir_frente() {
-    digitalWrite(in1, HIGH);
+    digitalWrite(in1, vel);
     digitalWrite(in2, LOW);
-    digitalWrite(in3, HIGH);
+    digitalWrite(in3, vel);
     digitalWrite(in4, LOW);
 }
 
 void Robo::ir_tras() {
     digitalWrite(in1, LOW);
-    digitalWrite(in2, HIGH);
+    digitalWrite(in2, vel);
     digitalWrite(in3, LOW);
-    digitalWrite(in4, HIGH);
+    digitalWrite(in4, vel);
 }
 
 void Robo::parar_Motores() {
@@ -62,7 +62,7 @@ void Robo::parar_Motores() {
 }
 
 void Robo::virar_direita() {
-    digitalWrite(in1, HIGH);
+    digitalWrite(in1, vel);
     digitalWrite(in2, LOW);
     delay(1000);
     parar_Motores();
@@ -70,13 +70,13 @@ void Robo::virar_direita() {
 
 void Robo::voltar_direita(){
     digitalWrite(in1, LOW);
-    digitalWrite(in2, HIGH);
+    digitalWrite(in2, vel);
     delay(1000);
     parar_Motores();
 }
 
 void Robo::virar_esquerda(){
-    digitalWrite(in3, HIGH);
+    digitalWrite(in3, vel);
     digitalWrite(in4, LOW);
     delay(1000);
     parar_Motores();
@@ -84,7 +84,7 @@ void Robo::virar_esquerda(){
 
 void Robo::voltar_esquerda(){
     digitalWrite(in3, LOW);
-    digitalWrite(in4, HIGH);
+    digitalWrite(in4, vel);
     delay(1000);
     parar_Motores();
 }
