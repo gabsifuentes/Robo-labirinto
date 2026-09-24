@@ -19,10 +19,10 @@ Servo meuServo;
 
 class Robo {
 private:
-    int vel = 255;
+    int vel = 180;
 public:
-    void virar_direita(); //move motor A sentido horário
-    void virar_esquerda(); //move motor B sentido horário
+    void virar_direita(); //move motor A sentido horário e B antihorário
+    void virar_esquerda(); //move motor B sentido horário e A antihorário
     void ir_frente(); //gira motores sentido horário
     void ir_tras(); //gira motores sentido antihorário
     void parar_Motores(); 
@@ -73,7 +73,7 @@ void Robo::virar_direita() {
     analogWrite(enA, vel);
     analogWrite(enB, vel);
 
-    delay(500);
+    delay(700);
     parar_Motores();
 }
 
@@ -87,7 +87,7 @@ void Robo::virar_esquerda(){
     analogWrite(enA, vel);
     analogWrite(enB, vel);
 
-    delay(500);
+    delay(700);
     parar_Motores();
 }
 
@@ -128,14 +128,13 @@ float Robo::pegar_dist(){
 bool Robo::detectar_parede(){
     float distancia = pegar_dist();
 
-    if(distancia < 5){
+    if(distancia < 4){
         return true;
-    } 
+    }
     else{
         return false;
     }
 }
-
 
 void setup(){
     Serial.begin(9600);
@@ -183,6 +182,8 @@ void loop(){
             }
             else{
                 robo.servo_frente();
+
+                robo.virar_direita();
 
                 robo.virar_direita();
             }
