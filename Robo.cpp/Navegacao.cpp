@@ -22,9 +22,7 @@ private:
     int vel = 255;
 public:
     void virar_direita(); //move motor A sentido horário
-    void voltar_direita(); //move motor A sentido antihorário
     void virar_esquerda(); //move motor B sentido horário
-    void voltar_esquerda(); //move motor B sentido antihorário
     void ir_frente(); //gira motores sentido horário
     void ir_tras(); //gira motores sentido antihorário
     void parar_Motores(); 
@@ -38,17 +36,21 @@ public:
 
 //funções dos motores
 void Robo::ir_frente() {
-    digitalWrite(in1, vel);
+    digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
-    digitalWrite(in3, vel);
+    digitalWrite(in3, HIGH);
     digitalWrite(in4, LOW);
+    analogWrite(enA, vel);
+    analogWrite(enB, vel);
 }
 
 void Robo::ir_tras() {
     digitalWrite(in1, LOW);
-    digitalWrite(in2, vel);
+    digitalWrite(in2, HIGH);
     digitalWrite(in3, LOW);
-    digitalWrite(in4, vel);
+    digitalWrite(in4, HIGH);
+    analogWrite(enA, vel);
+    analogWrite(enB, vel);
 }
 
 void Robo::parar_Motores() {
@@ -56,32 +58,24 @@ void Robo::parar_Motores() {
     digitalWrite(in2, LOW);
     digitalWrite(in3, LOW);
     digitalWrite(in4, LOW);
+    analogWrite(enA, 0);
+    analogWrite(enB, 0);
 }
 
 void Robo::virar_direita() {
-    digitalWrite(in1, vel);
+    digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
-    delay(1000);
-    parar_Motores();
-}
-
-void Robo::voltar_direita(){
-    digitalWrite(in1, LOW);
-    digitalWrite(in2, vel);
+    analogWrite(enA, vel);
+    analogWrite(enB, 0);
     delay(1000);
     parar_Motores();
 }
 
 void Robo::virar_esquerda(){
-    digitalWrite(in3, vel);
+    digitalWrite(in3, HIGH);
     digitalWrite(in4, LOW);
-    delay(1000);
-    parar_Motores();
-}
-
-void Robo::voltar_esquerda(){
-    digitalWrite(in3, LOW);
-    digitalWrite(in4, vel);
+    analogWrite(enA, 0);
+    analogWrite(enB, vel);
     delay(1000);
     parar_Motores();
 }
@@ -173,8 +167,6 @@ void loop(){
                 robo.virar_direita();
 
                 robo.virar_direita();
-
-                robo.servo_direita();
             }
         }
     }
