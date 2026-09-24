@@ -40,6 +40,27 @@ public:
 };
 
 //funções dos motores
+void Robo::ir_frente() {
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+}
+
+void Robo::ir_tras() {
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+}
+
+void Robo::parar_Motores() {
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, LOW);
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, LOW);
+}
+
 void Robo::virar_direita() {
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
@@ -66,27 +87,6 @@ void Robo::voltar_esquerda(){
     digitalWrite(in4, HIGH);
     delay(1000);
     parar_Motores();
-}
-
-void Robo::ir_frente() {
-    digitalWrite(in1, HIGH);
-    digitalWrite(in2, LOW);
-    digitalWrite(in3, HIGH);
-    digitalWrite(in4, LOW);
-}
-
-void Robo::ir_tras() {
-    digitalWrite(in1, LOW);
-    digitalWrite(in2, HIGH);
-    digitalWrite(in3, LOW);
-    digitalWrite(in4, HIGH);
-}
-
-void Robo::parar_Motores() {
-    digitalWrite(in1, LOW);
-    digitalWrite(in2, LOW);
-    digitalWrite(in3, LOW);
-    digitalWrite(in4, LOW);
 }
 
 //funções do servo
@@ -121,7 +121,7 @@ bool Robo::detectar_parede(){
 
     distancia = tempo * 0.034 / 2;
 
-    if(distancia < 20){
+    if(distancia < 5){
         return true;
     } 
     else{
@@ -152,37 +152,32 @@ void loop(){
     }
     else{
         robo.parar_Motores();
-        delay(500);
 
         robo.servo_direita();
-        delay(600);
         bool paredeDireita = robo.detectar_parede();
 
         if(!paredeDireita){
             robo.servo_frente();
-            delay(500);
 
             robo.virar_direita();
-            delay(1000);
         }
         else{
             robo.servo_esquerda();
-            delay(1000);
             bool paredeEsquerda = robo.detectar_parede();
 
             if(!paredeEsquerda){
                 robo.servo_frente();
-                delay(500);
 
                 robo.virar_esquerda();
-                delay(1000);
             }
             else{
                 robo.servo_frente();
-                delay(500);
 
                 robo.virar_direita();
-                delay(1600);
+
+                robo.virar_direita();
+
+                robo.servo_direita();
             }
         }
     }
