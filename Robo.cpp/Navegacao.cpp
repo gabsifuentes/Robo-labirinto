@@ -6,11 +6,11 @@
 #define SERVO 9
 
 // Motor a
-#define in1 2
-#define in2 3 // verificar pinos
+#define in1 7
+#define in2 5 // verificar pinos
 // Motor b
 #define in3 4
-#define in4 7
+#define in4 2
 // pinos enables (vel dos motores)
 #define enA 3
 #define enB 6
@@ -20,9 +20,6 @@ Servo meuServo;
 class Robo {
 private:
     int vel = 255;
-    bool paredeDireita;
-    bool paredeEsquerda;
-    bool ParedeFrente;
 public:
     void virar_direita(); //move motor A sentido horário
     void voltar_direita(); //move motor A sentido antihorário
@@ -117,7 +114,7 @@ bool Robo::detectar_parede(){
     delayMicroseconds(10);
     digitalWrite(TRIG, LOW);
 
-    tempo = pulseIn(ECHO, HIGH);
+    tempo = pulseIn(ECHO, HIGH, 30000); 
 
     distancia = tempo * 0.034 / 2;
 
