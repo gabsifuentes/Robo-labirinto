@@ -32,6 +32,7 @@ public:
     int servo_esquerda();
 
     bool detectar_parede();
+    float pegar_dist();
 };
 
 //funções dos motores
@@ -65,18 +66,28 @@ void Robo::parar_Motores() {
 void Robo::virar_direita() {
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
+
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+
     analogWrite(enA, vel);
-    analogWrite(enB, 0);
-    delay(1000);
+    analogWrite(enB, vel);
+
+    delay(500);
     parar_Motores();
 }
 
 void Robo::virar_esquerda(){
     digitalWrite(in3, HIGH);
     digitalWrite(in4, LOW);
-    analogWrite(enA, 0);
+
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+
+    analogWrite(enA, vel);
     analogWrite(enB, vel);
-    delay(1000);
+
+    delay(500);
     parar_Motores();
 }
 
@@ -100,7 +111,7 @@ int Robo::servo_direita(){
 }
 
 //função do sensor
-bool Robo::detectar_parede(){
+float Robo::pegar_dist(){
     long tempo, distancia;
     digitalWrite(TRIG, LOW);
     delayMicroseconds(2);
@@ -111,6 +122,11 @@ bool Robo::detectar_parede(){
     tempo = pulseIn(ECHO, HIGH, 30000); 
 
     distancia = tempo * 0.034 / 2;
+    return distancia;
+}
+
+bool Robo::detectar_parede(){
+    float distancia = pegar_dist();
 
     if(distancia < 5){
         return true;
@@ -119,6 +135,7 @@ bool Robo::detectar_parede(){
         return false;
     }
 }
+
 
 void setup(){
     Serial.begin(9600);
@@ -129,6 +146,9 @@ void setup(){
     pinMode(in2, OUTPUT);
     pinMode(in3, OUTPUT);
     pinMode(in4, OUTPUT);
+
+    pinMode(enA, OUTPUT);
+    pinMode(enB, OUTPUT);
 
     meuServo.attach(SERVO);
 }
@@ -163,8 +183,6 @@ void loop(){
             }
             else{
                 robo.servo_frente();
-
-                robo.virar_direita();
 
                 robo.virar_direita();
             }
