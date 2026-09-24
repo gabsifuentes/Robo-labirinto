@@ -18,6 +18,10 @@
 Servo meuServo;
 
 class Robo {
+private:
+    int vel = 255;
+    bool parede_direita;
+    bool parede_esquerda;
 public:
     void virar_direita(); //move motor A sentido horário
     void voltar_direita(); //move motor A sentido antihorário
@@ -140,8 +144,48 @@ void setup(){
 Robo robo;
 
 void loop(){
+    bool parede = robo.detectar_parede();
 
-    if(parede == false){
+    if(!parede){
         robo.ir_frente();
+    }
+    else{
+        robo.parar_Motores();
+        delay(500);
+
+        robo.servo_direita();
+        delay(600);
+        bool parede = robo.detectar_parede();
+
+        if(!parede){
+            robo.servo_frente();
+            delay(500);
+
+            robo.virar_direita();
+            delay(1000);
+        }
+        else{
+            robo.servo_esquerda();
+            delay(500);
+            bool parede = robo.detectar_parede();
+
+            if(!parede){
+                robo.servo_frente();
+                delay(500);
+
+                robo.virar_esquerda();
+                delay(1000);
+            }
+            else{
+                robo.servo_frente();
+                delay(500);
+
+                robo.virar_direita();
+                delay(1600);
+
+                robo.virar_direita();
+                delay(1000);
+            }
+        }
     }
 }
