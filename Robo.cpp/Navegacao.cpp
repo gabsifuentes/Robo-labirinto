@@ -20,8 +20,9 @@ Servo meuServo;
 class Robo {
 private:
     int vel = 255;
-    bool parede_direita;
-    bool parede_esquerda;
+    bool paredeDireita;
+    bool paredeEsquerda;
+    bool ParedeFrente;
 public:
     void virar_direita(); //move motor A sentido horário
     void voltar_direita(); //move motor A sentido antihorário
@@ -88,7 +89,7 @@ void Robo::parar_Motores() {
     digitalWrite(in4, LOW);
 }
 
-//funçês do servo
+//funções do servo
 int Robo::servo_frente(){
     meuServo.write(90);
     delay(1000);
@@ -144,9 +145,9 @@ void setup(){
 Robo robo;
 
 void loop(){
-    bool parede = robo.detectar_parede();
+    bool paredeFrente = robo.detectar_parede();
 
-    if(!parede){
+    if(!paredeFrente){
         robo.ir_frente();
     }
     else{
@@ -155,9 +156,9 @@ void loop(){
 
         robo.servo_direita();
         delay(600);
-        bool parede_direita = robo.detectar_parede();
+        bool paredeDireita = robo.detectar_parede();
 
-        if(!parede_direita){
+        if(!paredeDireita){
             robo.servo_frente();
             delay(500);
 
@@ -166,10 +167,10 @@ void loop(){
         }
         else{
             robo.servo_esquerda();
-            delay(500);
-            bool parede_esquerda = robo.detectar_parede();
+            delay(1000);
+            bool paredeEsquerda = robo.detectar_parede();
 
-            if(!parede_esquerda){
+            if(!paredeEsquerda){
                 robo.servo_frente();
                 delay(500);
 
@@ -182,9 +183,6 @@ void loop(){
 
                 robo.virar_direita();
                 delay(1600);
-
-                robo.virar_direita();
-                delay(1000);
             }
         }
     }
