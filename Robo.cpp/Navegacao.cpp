@@ -155,9 +155,9 @@ void loop(){
 
         robo.servo_direita();
         delay(600);
-        bool parede = robo.detectar_parede();
+        bool parede_direita = robo.detectar_parede();
 
-        if(!parede){
+        if(!parede_direita){
             robo.servo_frente();
             delay(500);
 
@@ -167,9 +167,9 @@ void loop(){
         else{
             robo.servo_esquerda();
             delay(500);
-            bool parede = robo.detectar_parede();
+            bool parede_esquerda = robo.detectar_parede();
 
-            if(!parede){
+            if(!parede_esquerda){
                 robo.servo_frente();
                 delay(500);
 
