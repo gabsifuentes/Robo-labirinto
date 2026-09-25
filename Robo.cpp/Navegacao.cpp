@@ -12,8 +12,8 @@
 #define in3 4
 #define in4 2
 // pinos enables (vel dos motores)
-#define enA 3
-#define enB 6
+#define enA 6
+#define enB 3
 
 Servo meuServo;
 
