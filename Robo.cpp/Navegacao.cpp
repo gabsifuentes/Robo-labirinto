@@ -95,13 +95,13 @@ void Robo::virar_esquerda(){
 int Robo::servo_frente(){
     meuServo.write(90);
     delay(1000);
-    return 90;
+    return 0;
 }
 
 int Robo::servo_esquerda(){
     meuServo.write(180);
     delay(1000);
-    return 180;
+    return 0;
 }
 
 int Robo::servo_direita(){
