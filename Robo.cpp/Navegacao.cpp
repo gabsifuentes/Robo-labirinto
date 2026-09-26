@@ -9,11 +9,11 @@
 #define in1 7
 #define in2 5 // verificar pinos
 // Motor b
-#define in3 4
-#define in4 2
+#define in3 2
+#define in4 4
 // pinos enables (vel dos motores)
-#define enA 6
-#define enB 3
+#define enA 3
+#define enB 6
 
 Servo meuServo;
 
@@ -63,7 +63,7 @@ void Robo::parar_Motores() {
     analogWrite(enB, 0);
 }
 
-void Robo::virar_direita() {
+void Robo::virar_esquerda() {
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
 
@@ -77,7 +77,7 @@ void Robo::virar_direita() {
     parar_Motores();
 }
 
-void Robo::virar_esquerda(){
+void Robo::virar_direita(){
     digitalWrite(in3, HIGH);
     digitalWrite(in4, LOW);
 
