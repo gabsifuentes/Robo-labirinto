@@ -19,7 +19,13 @@ Servo meuServo;
 
 class Robo {
 private:
-    int vel = 180;
+    const int vel = 255;
+    const int vel_giros = 180;
+    const int distancia_limite = 10;
+
+    const int angulo_frente = 90;
+    const int angulo_esquerda = 180;
+    const int angulo_direita = 0;
 public:
     void virar_direita(); //move motor A sentido horário e B antihorário
     void virar_esquerda(); //move motor B sentido horário e A antihorário
@@ -70,10 +76,10 @@ void Robo::virar_esquerda() {
     digitalWrite(in3, LOW);
     digitalWrite(in4, HIGH);
 
-    analogWrite(enA, vel);
-    analogWrite(enB, vel);
+    analogWrite(enA, vel_giros);
+    analogWrite(enB, vel_giros);
 
-    delay(700);
+    delay(350);
     parar_Motores();
 }
 
@@ -84,30 +90,27 @@ void Robo::virar_direita(){
     digitalWrite(in1, LOW);
     digitalWrite(in2, HIGH);
 
-    analogWrite(enA, vel);
-    analogWrite(enB, vel);
+    analogWrite(enA, vel_giros);
+    analogWrite(enB, vel_giros);
 
-    delay(700);
+    delay(350);
     parar_Motores();
 }
 
 //funções do servo
-int Robo::servo_frente(){
-    meuServo.write(90);
-    delay(1000);
-    return 0;
+void Robo::servo_frente(){
+    meuServo.write(angulo_frente);
+    delay(500);
 }
 
-int Robo::servo_esquerda(){
-    meuServo.write(180);
-    delay(1000);
-    return 0;
+void Robo::servo_esquerda(){
+    meuServo.write(angulo_esquerda);
+    delay(500);
 }
 
-int Robo::servo_direita(){
-    meuServo.write(0);
-    delay(1000);
-    return 0;
+void Robo::servo_direita(){
+    meuServo.write(angulo_direita);
+    delay(500);
 }
 
 //função do sensor
@@ -120,6 +123,9 @@ float Robo::pegar_dist(){
     digitalWrite(TRIG, LOW);
 
     tempo = pulseIn(ECHO, HIGH, 30000); 
+    if(tempo == 0){
+        return -1;
+    }
 
     distancia = tempo * 0.034 / 2;
     return distancia;
@@ -128,11 +134,11 @@ float Robo::pegar_dist(){
 bool Robo::detectar_parede(){
     float distancia = pegar_dist();
 
-    if(distancia < 4){
-        return true;
+    if(distancia < 0){
+        return false;
     }
     else{
-        return false;
+        return (distancia < distancia_limite);
     }
 }
 
@@ -155,6 +161,8 @@ void setup(){
 Robo robo;
 
 void loop(){
+    robo.servo_frente();
+
     bool paredeFrente = robo.detectar_parede();
 
     if(!paredeFrente){
